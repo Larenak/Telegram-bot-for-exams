@@ -63,8 +63,7 @@ async def start_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if int(update.message.text[1:]) <= 12:
             print(answer_num)
             await update.message.reply_text(answer[:6]+"||" + " \\" +answer[7:]+"||",parse_mode='MarkdownV2')
-    elif update.message.text == "№1488":
-        await update.message.reply_text('ЧТООО ПАСХАЛКООО ВКЛЮЧАЕМ ВЕНТИЛЯТОРЫ!!!!!!!!!')
+    
     else: await update.message.reply_text('Упс! Такого задания мы не нашли! Введите номер задания ещё раз: ')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
