@@ -6,7 +6,6 @@ from random import randint
 from bs4 import BeautifulSoup as bs
 
 async def start_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Отввечает на выбранный пользователям номер"""
     reply = "Вы выбрали задание " + update.message.text + ". Отправляю вам задание... "
     rand_num = randint(1,3)
     if rand_num == 1: 
@@ -27,9 +26,7 @@ async def start_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if update.message.text in ["№1","№2","№3","№4","№5","№6","№7","№8","№9","№10","№11","№12","№13","№14","№15","№16","№17","№18","№19"]:
         await update.message.reply_text(reply)
-        # получение кода задания
         image_code = items[int(update.message.text[1:])-1]
-        # получение ответа задания
         answer_num = items_answer[int(update.message.text[1:])-1].find('a').text
         r_answer = requests.get('https://math-ege.sdamgia.ru/problem?id='+answer_num)
         soup_answer = bs(r_answer.content, 'html.parser')
@@ -67,7 +64,6 @@ async def start_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else: await update.message.reply_text('Упс! Такого задания мы не нашли! Введите номер задания ещё раз: ')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Показывает клавиатуру с выбором номеров заданий"""
     reply_keyboard = [["№1", "№2", "№3", "№4", "№5"],
                        ["№6", "№7", "№8", "№9", "№10"],
                       ["№11", "№12", "№13", "№14", "№15"],
@@ -81,7 +77,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         ))
 
 def main():
-    """Старт бота"""
     application = Application.builder().token("TOKEN").build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start_reply))
@@ -89,3 +84,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
